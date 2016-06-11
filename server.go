@@ -11,5 +11,8 @@ func main() {
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
+	e.GET("/user/:id", func(c echo.Context) error {
+ 		return c.String(http.StatusOK, "Hello, " + c.Param("id"))
+	})
 	e.Run(standard.New(":1323"))
 }
