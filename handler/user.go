@@ -28,10 +28,9 @@ func CreateUser(c echo.Context) error {
 	users[u.ID] = u
 	seq++
 	return c.JSON(http.StatusCreated, u)
-
 }
 
-func GetUser(c echo.Context) error {
+func ReadUser(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 	return c.JSON(http.StatusOK, users[id])
 }

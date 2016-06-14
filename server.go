@@ -17,7 +17,7 @@ func main() {
 
 	// Routers
 	e.POST("users", handler.CreateUser)
-	e.GET("/users/:id", handler.GetUser)
+	e.GET("/users/:id", handler.ReadUser)
 	e.PUT("/users/:id", handler.UpdateUser)
 	e.DELETE("/users/:id", handler.DeleteUser)
 
