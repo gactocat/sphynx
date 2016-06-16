@@ -1,6 +1,6 @@
 # snowshoe
 
-A boilerplate for Go + Echo + Godep
+A boilerplate for Go + Echo + Godep.
 
 ## Get Start
 
