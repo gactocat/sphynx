@@ -1,7 +1,10 @@
 package handler
 
 import (
+	"github.com/gactocat/snowshoe/config"
+	"github.com/gactocat/snowshoe/models"
 	"github.com/labstack/echo"
+	"log"
 	"net/http"
 	"strconv"
 )
@@ -32,7 +35,16 @@ func CreateUser(c echo.Context) error {
 
 func ReadUser(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
-	return c.JSON(http.StatusOK, users[id])
+	//return c.JSON(http.StatusOK, users[id])
+	log.Println(id)
+	u1 := models.User{}
+	conn := config.GetContext().Db.Connection()
+	err := conn.SelectOne(&u1, "select id, name from user where id = ?", id)
+	if err != nil {
+		log.Fatalln("Select failed", err)
+		return err
+	}
+	return c.JSON(http.StatusOK, u1)
 }
 
 func UpdateUser(c echo.Context) error {
