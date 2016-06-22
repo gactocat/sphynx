@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	sq "github.com/Masterminds/squirrel"
 	"github.com/go-gorp/gorp"
 	_ "github.com/go-sql-driver/mysql"
 	"log"
@@ -20,6 +21,7 @@ func main() {
 	err := dbMap.Insert(&u1, &u2)
 	checkErr(err, "Insert failed")
 
+	sq.Select("count(*)").From("user").ToSql()
 	count, err := dbMap.SelectInt("select count(*) from user")
 	checkErr(err, "select count(*) failed")
 	log.Println("Rows after inserting:", count)

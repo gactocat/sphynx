@@ -1,5 +1,9 @@
 package models
 
+import (
+	sq "github.com/Masterminds/squirrel"
+)
+
 type UserRepo struct {
 	conn ConnectionInterface
 }
@@ -10,14 +14,19 @@ func NewUserRepo() UserRepo {
 
 func (repo UserRepo) Find(id int) (User, error) {
 	user := &User{}
-	err := conn().SelectOne(&user, "select id, name from user where id = ?", id)
+	sql, args, _ := sq.
+		Select("id", "name").
+		From("user").
+		Where(sq.Eq{"id": id}).
+		ToSql()
+	err := conn().SelectOne(&user, sql, args...)
 	if err != nil {
 		return *user, err
 	}
 	return *user, nil
 }
 
-func (repo UserRepo) Insert(user *User) (error) {
+func (repo UserRepo) Insert(user *User) error {
 	err := conn().Insert(user)
 	if err != nil {
 		return err
@@ -25,7 +34,7 @@ func (repo UserRepo) Insert(user *User) (error) {
 	return nil
 }
 
-func (repo UserRepo) Update(user *User) (error) {
+func (repo UserRepo) Update(user *User) error {
 	_, err := conn().Update(user)
 	if err != nil {
 		return err
