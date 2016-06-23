@@ -10,7 +10,6 @@ import (
 
 type DB struct {
 	connection *Connection
-	config     Config
 }
 
 type DatabaseInterface interface {
@@ -19,7 +18,7 @@ type DatabaseInterface interface {
 	RawConnection() *sql.DB
 }
 
-func NewDatabase(db *sql.DB, config Config) *DB {
+func NewDatabase(db *sql.DB) *DB {
 	connection := &Connection{
 		DbMap: &gorp.DbMap{
 			Db: db,
@@ -31,7 +30,6 @@ func NewDatabase(db *sql.DB, config Config) *DB {
 	}
 
 	database := &DB{
-		config:     config,
 		connection: connection,
 	}
 

@@ -13,6 +13,7 @@ func NewUserRepo() UserRepo {
 }
 
 func (repo UserRepo) Find(id int) (User, error) {
+	conn().Transaction().Begin()
 	user := &User{}
 	sql, args, _ := sq.
 		Select("id", "name").
