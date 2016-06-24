@@ -1,0 +1,7 @@
+golang:
+  build: ./golang
+  volumes:
+    - "../:/go/src/github.com/gactocat/snowshoe"
+  working_dir: /go/src/github.com/gactocat/snowshoe
+  ports:
+    - "8080:8080"
